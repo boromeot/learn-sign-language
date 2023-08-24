@@ -18,22 +18,33 @@ function App() {
     canvasRef.current.width = videoWidth;
     canvasRef.current.height = videoHeight;
 
-    console.log(canvasRef.current.width)
-    console.log(canvasRef.current.height)
      
     const ctx = canvasRef.current.getContext('2d');
-
-
 
     const detection = await model.estimateHands(video);
     if (detection.length > 0) {
       const { landmarks } = detection[0];
       const { annotations } = detection[0];
-      for (const [x, y ,z] of landmarks) {
+      for (const [x, y, z] of landmarks) {
         ctx.beginPath();
         ctx.arc(x, y, 2, 0, 2 * Math.PI);
         ctx.fillStyle = 'violet';
         ctx.fill();
+        ctx.closePath();
+      }
+
+      for (const key in annotations) {
+        const coords = annotations[key];
+        ctx.beginPath();
+        for (let i = coords.length - 1; i >= 0; i--) {
+          const [x, y, z] = coords[i];
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(annotations['palmBase'][0][0], annotations['palmBase'][0][1])
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = 'green';
+        ctx.stroke();
+        ctx.closePath();
       }
 
     }
