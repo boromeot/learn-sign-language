@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
+import { useInterval } from './hooks';
 import Webcam from 'react-webcam'
 import * as handtrack from '@tensorflow-models/handpose';
-import * as tf from '@tensorflow/tfjs';
+import '@tensorflow/tfjs-backend-webgl';
 import './App.css'
 
 function App() {
@@ -20,7 +21,16 @@ function App() {
     loadModel();
   }, [])
 
+  useInterval(() => {
+    if (model) {
+      detect(model);
+    }
+  }, 10);
 
+  async function detect(model) {
+    const detection = await model.estimateHands(webCamRef.current);
+    console.log(detection, 'detection')
+  }
 
   return (
     <>
