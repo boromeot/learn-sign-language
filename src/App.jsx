@@ -6,6 +6,7 @@ import './App.css'
 
 function App() {
   const webCamRef = useRef(null);
+  const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
 
   useEffect(() => {
@@ -19,10 +20,15 @@ function App() {
     loadModel();
   }, [])
 
+
+
   return (
     <>
       <Webcam 
         ref={webCamRef}
+      />
+      <canvas 
+        ref={canvasRef}
       />
     </>
   )
