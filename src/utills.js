@@ -1,3 +1,20 @@
+import * as handPoseDetection from '@tensorflow-models/hand-pose-detection';
+import '@tensorflow/tfjs-core';
+// Register WebGL backend.
+import '@tensorflow/tfjs-backend-webgl';
+import '@mediapipe/hands';
+
+async function setHandDetector() {
+  const MediaPipeHands = handPoseDetection.SupportedModels.MediaPipeHands;
+  const detectorConfig = {
+    runtime: 'mediapipe',
+    solutionPath: 'node_modules/@mediapipe/hands',
+    maxHands: 2,
+    modelType: 'full',
+  };
+  return await handPoseDetection.createDetector(MediaPipeHands, detectorConfig);
+}
+
 function draw(detections, canvasContext) {
   for (let i = 0; i < detections.length; i++) {
     const { keypoints } = detections[i];
@@ -27,4 +44,4 @@ function draw(detections, canvasContext) {
   }
 }
 
-export { draw };
+export { setHandDetector, draw};

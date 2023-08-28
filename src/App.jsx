@@ -1,36 +1,37 @@
 import { useState, useRef, useEffect } from 'react'
 import { useInterval } from './hooks';
-import { draw } from './draw';
+import { draw, setHandDetector } from './utills';
 import Webcam from 'react-webcam';
+import './App.css'
 
 import * as handPoseDetection from '@tensorflow-models/hand-pose-detection';
 import '@tensorflow/tfjs-core';
 // Register WebGL backend.
 import '@tensorflow/tfjs-backend-webgl';
 import '@mediapipe/hands';
-import './App.css'
 
 function App() {
   const webCamRef = useRef(null);
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
 
-  useEffect(() => {
-    // Load mediapipe hand detection model
-    const loadModel = async () => {
-      const model = handPoseDetection.SupportedModels.MediaPipeHands;
-      const detectorConfig = {
-        runtime: 'mediapipe',
-        solutionPath: 'node_modules/@mediapipe/hands',
-        maxHands: 2,
-        modelType: 'full',
-      };
-      const detector = await handPoseDetection.createDetector(model, detectorConfig);
-      setModel(detector);
-    }
-
-    loadModel();
-  }, [])
+  const run = async () => {
+    const MediaPipeHands = handPoseDetection.SupportedModels.MediaPipeHands;
+    const detectorConfig = {
+      runtime: 'mediapipe',
+      solutionPath: 'node_modules/@mediapipe/hands',
+      maxHands: 2,
+      modelType: 'full',
+    };
+    const model = await handPoseDetection.createDetector(MediaPipeHands, detectorConfig);
+    console.log('model loaded', model);
+    setTimeout(() => {
+      setInterval(() => {
+        detect(model);
+      }, 10);
+    }, 5000);
+  }
+  run();
   
   async function detect(model) {
     const video = webCamRef.current.video;
@@ -42,17 +43,10 @@ function App() {
 
     const ctx = canvasRef.current.getContext('2d');
     const detections = await model.estimateHands(video);
+    console.log(detections, 'detections', '\n', model, 'model');
 
     draw(detections, ctx);
   }
-
-  useInterval(() => {
-    if (model) {
-      detect(model);
-    }
-  }, 10);
-
-
   return (
     <>
       <Webcam 
