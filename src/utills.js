@@ -16,8 +16,13 @@ async function setHandDetector() {
 }
 
 function draw(detections, canvasContext) {
+  // Set canvas settings
+  canvasContext.lineWidth = 1;
+  canvasContext.strokeStyle = 'black';
+  
   for (let i = 0; i < detections.landmarks.length; i++) {
     const landmarks = detections.landmarks[i] ? detections.landmarks[i] : [];
+    // Draw key points
     for (let {x, y} of landmarks) {
       x *= 640, y *= 480;
       canvasContext.beginPath();
@@ -26,12 +31,8 @@ function draw(detections, canvasContext) {
       canvasContext.fill();
       canvasContext.closePath();
     }
-  }
-  
-  canvasContext.lineWidth = 1;
-  canvasContext.strokeStyle = 'black';
-  for (let i = 0; i < detections.landmarks.length; i++) {
-    const landmarks = detections.landmarks[i] ? detections.landmarks[i] : [];
+
+    // Draw connectors between keypoints
     canvasContext.beginPath();
     for (let i = 0; i < landmarks.length; i++) {
       let {x, y} = landmarks[i];
@@ -45,6 +46,7 @@ function draw(detections, canvasContext) {
       }
     }
     canvasContext.closePath();
+
   }
 }
 
