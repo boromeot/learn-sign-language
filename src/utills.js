@@ -1,8 +1,4 @@
 import { HandLandmarker, FilesetResolver } from '@mediapipe/tasks-vision';
-// import '@tensorflow/tfjs-core';
-// // Register WebGL backend.
-// import '@tensorflow/tfjs-backend-webgl';
-// import '@mediapipe/hands';
 
 async function setHandDetector() {
   const vision = await FilesetResolver.forVisionTasks(
