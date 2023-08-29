@@ -12,7 +12,7 @@ function App() {
     const run = async () => {
       try {
         const handModel = await setHandDetector();
-        console.log('Model loaded');
+        console.log('Model loaded', handModel);
         setModel(handModel);
       } catch (error) {
         console.error('Error loading hand model:', error);
@@ -47,10 +47,11 @@ function App() {
     canvasRef.current.width = videoWidth;
     canvasRef.current.height = videoHeight;
 
-    const ctx = canvasRef.current.getContext('2d');
-    const detections = await model.estimateHands(video);
+    const startTimeMs = performance.now();
+    const detections = await model.detectForVideo(video, startTimeMs);
     
     // Clear the canvas before drawing
+    const ctx = canvasRef.current.getContext('2d');
     ctx.clearRect(0, 0, videoWidth, videoHeight);
     
     draw(detections, ctx);
@@ -65,4 +66,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
