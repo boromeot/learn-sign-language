@@ -1,12 +1,13 @@
-import { HandLandmarker, FilesetResolver } from '@mediapipe/tasks-vision';
+import { GestureRecognizer, FilesetResolver } from '@mediapipe/tasks-vision';
+import taskUrl from './models/gesture_recognizer.task';
 
 async function setHandDetector() {
   const vision = await FilesetResolver.forVisionTasks(
-    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.0/wasm"
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
   );
-  const handLandmarker = await HandLandmarker.createFromOptions(vision, {
+  const handLandmarker = await GestureRecognizer.createFromOptions(vision, {
     baseOptions: {
-      modelAssetPath: `https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task`,
+      modelAssetPath: taskUrl,
       delegate: "GPU"
     },
     runningMode: 'VIDEO',

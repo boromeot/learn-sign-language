@@ -7,6 +7,7 @@ function App() {
   const webCamRef = useRef(null);
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
+  const [letter, setLetter] = useState('none');
 
   useEffect(() => {
     const run = async () => {
@@ -48,8 +49,10 @@ function App() {
     canvasRef.current.height = videoHeight;
 
     const startTimeMs = performance.now();
-    const detections = await model.detectForVideo(video, startTimeMs);
-    
+    const detections = await model.recognizeForVideo(video, startTimeMs);
+    if (detections.gestures[0]) {
+      setLetter(detections.gestures[0][0].categoryName)
+    }
     // Clear the canvas before drawing
     const ctx = canvasRef.current.getContext('2d');
     ctx.clearRect(0, 0, videoWidth, videoHeight);
@@ -60,6 +63,14 @@ function App() {
 
   return (
     <>
+      <h1
+        style={{
+          position: 'absolute',
+          top: 0
+        }}
+      >
+        {letter}
+      </h1>
       <Webcam ref={webCamRef} />
       <canvas ref={canvasRef} />
     </>
