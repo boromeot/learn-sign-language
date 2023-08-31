@@ -7,7 +7,9 @@ function App() {
   const webCamRef = useRef(null);
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
-  const [letter, setLetter] = useState('none');
+  const [guessLetter, setGuessLetter] = useState('none');
+  const [word, setWord] = useState('HELLO');
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const run = async () => {
@@ -31,27 +33,37 @@ function App() {
     }
   }, [model]);
 
+  useEffect(() => { 
+    if (word[index] === guessLetter) {
+      console.log('yes');
+      setIndex((i) => i + 1);
+    }
+    else console.log('no');
+  }, [guessLetter]);
+
+  useEffect(() => {
+    if (index === word.length) alert('CORRECT');
+  }, [index])
+
   async function detect(model) {
     if (typeof webCamRef.current === undefined ||
         webCamRef.current === null ||
         webCamRef.current.video.readyState !== 4
       ) return;
-    const video = webCamRef.current.video;
     // Get video dimensions
+    const video = webCamRef.current.video;
     const { videoWidth, videoHeight } = video;
 
-    // Set video dimensions
+    // Set video and canvas dimensions
     video.width = videoWidth;
     video.height = videoHeight;
-
-    // Set canvas dimensions
     canvasRef.current.width = videoWidth;
     canvasRef.current.height = videoHeight;
 
     const startTimeMs = performance.now();
     const detections = await model.recognizeForVideo(video, startTimeMs);
     if (detections.gestures[0]) {
-      setLetter(detections.gestures[0][0].categoryName)
+      setGuessLetter(detections.gestures[0][0].categoryName);
     }
     // Clear the canvas before drawing
     const ctx = canvasRef.current.getContext('2d');
@@ -63,14 +75,11 @@ function App() {
 
   return (
     <>
-      <h1
-        style={{
-          position: 'absolute',
-          top: 0
-        }}
-      >
-        {letter}
-      </h1>
+      <div className='wordBox'>
+        <h1>word: {word}</h1>
+        {/* <h2>guess: {guessLetter}</h2> */}
+        <h2>Sign this letter: {word[index]}</h2>
+      </div>
       <Webcam ref={webCamRef} />
       <canvas ref={canvasRef} />
     </>
