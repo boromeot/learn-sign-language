@@ -8,6 +8,7 @@ function App() {
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
   const [letter, setLetter] = useState('none');
+  const [word, setWord] = useState('hello');
 
   useEffect(() => {
     const run = async () => {
@@ -63,14 +64,10 @@ function App() {
 
   return (
     <>
-      <h1
-        style={{
-          position: 'absolute',
-          top: 0
-        }}
-      >
-        {letter}
-      </h1>
+      <div className='wordBox'>
+        <h1>{word}</h1>
+        <h2>{letter}</h2>
+      </div>
       <Webcam ref={webCamRef} />
       <canvas ref={canvasRef} />
     </>
