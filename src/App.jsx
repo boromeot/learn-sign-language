@@ -75,17 +75,11 @@ function App() {
 
   return (
     <div className='lessonBackground'>
-      {/* <div className='wordBox'>
-        <h1>word: {word}</h1>
-        <h2>guess: {guessLetter}</h2>
-        <h2>Sign this letter: {word[index]}</h2>
-      </div> */}
+      <h1 className='word'>word: {word}</h1>
+      <h2 className='guess'>guess: {guessLetter}</h2>
+      <h2 className='currentLetter'>Sign this letter: {word[index]}</h2>
       <div className='webcamContainer'>
-        <Webcam 
-          className='webcam' 
-          ref={webCamRef} 
-          videoConstraints = {{
-          }}
+        <Webcam className='webcam' ref={webCamRef} 
         />
         <canvas className='canvas' ref={canvasRef} />
       </div>

@@ -13,6 +13,23 @@
   background-color: #C17625;
 }
 
+.word, .guess, .currentLetter {
+  text-align: center;
+  grid-column: 3 / 6;
+}
+
+.word {
+  grid-row: 2 / 3; 
+}
+
+.guess {
+  grid-row: 3 / 4;
+}
+
+.currentLetter {
+  grid-row: 4 / 5;
+}
+
 .webcamContainer {
   grid-column: 9 / 16;
   grid-row: 1 / 16;
