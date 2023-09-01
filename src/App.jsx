@@ -7,10 +7,14 @@ function App() {
   const webCamRef = useRef(null);
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
-  const [guessLetter, setGuessLetter] = useState('none');
-  const [word, setWord] = useState('HELLO');
-  const [index, setIndex] = useState(0);
 
+  const [words, setWords] = useState(['Cake','Bee','Candy','Who','About','Why','Add','Child','Rock','Bill','Brown','Room','Bird','Brother','Seem','Club'])
+  const [wordIndex, setWordIndex] = useState(0);
+  const [word, setWord] = useState('Cake');
+  const [letterIndex, setIndex] = useState(0);
+  const [guessLetter, setGuessLetter] = useState('');
+
+  // Load model
   useEffect(() => {
     const run = async () => {
       try {
@@ -24,6 +28,7 @@ function App() {
     run();
   }, []);
 
+  // Create game loop
   useEffect(() => {
     if (model) {
       const interval = setInterval(() => {
@@ -34,16 +39,19 @@ function App() {
   }, [model]);
 
   useEffect(() => { 
-    if (word[index] === guessLetter) {
+    if (word[letterIndex].toLocaleUpperCase() === guessLetter) {
       setIndex((i) => i + 1);
     }
   }, [guessLetter]);
 
   useEffect(() => {
-    if (index === word.length) {
+    if (letterIndex === word.length) {
       setIndex(0);
+      console.log(words)
+      setWord(words[wordIndex + 1]);
+      setWordIndex((i) => i + 1);
     }
-  }, [index]);
+  }, [letterIndex]);
 
   async function detect(model) {
     if (typeof webCamRef.current === undefined ||
@@ -77,12 +85,11 @@ function App() {
     <div className='lessonBackground'>
       <h1 className='word'>{
         word && word.split('').map((letter, i) => ( 
-          <span className={index === i ? '' : 'letter'} key={i}>
+          <span className={letterIndex === i ? '' : 'letter'} key={i}>
             {letter}
           </span>
         ))
       }</h1>
-      <h2 className='guess'>guess: {guessLetter}</h2>
       <div className='webcamContainer'>
         <Webcam className='webcam' ref={webCamRef} 
         />
