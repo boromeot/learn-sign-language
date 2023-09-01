@@ -35,15 +35,15 @@ function App() {
 
   useEffect(() => { 
     if (word[index] === guessLetter) {
-      console.log('yes');
       setIndex((i) => i + 1);
     }
-    else console.log('no');
   }, [guessLetter]);
 
   useEffect(() => {
-    if (index === word.length) alert('CORRECT');
-  }, [index])
+    if (index === word.length) {
+      setIndex(0);
+    }
+  }, [index]);
 
   async function detect(model) {
     if (typeof webCamRef.current === undefined ||
@@ -69,20 +69,27 @@ function App() {
     const ctx = canvasRef.current.getContext('2d');
     ctx.clearRect(0, 0, videoWidth, videoHeight);
     
-    draw(detections, ctx);
+    draw(detections, ctx, videoWidth, videoHeight);
     return;
   }
 
   return (
-    <>
-      <div className='wordBox'>
+    <div className='lessonBackground'>
+      {/* <div className='wordBox'>
         <h1>word: {word}</h1>
-        {/* <h2>guess: {guessLetter}</h2> */}
+        <h2>guess: {guessLetter}</h2>
         <h2>Sign this letter: {word[index]}</h2>
+      </div> */}
+      <div className='webcamContainer'>
+        <Webcam 
+          className='webcam' 
+          ref={webCamRef} 
+          videoConstraints = {{
+          }}
+        />
+        <canvas className='canvas' ref={canvasRef} />
       </div>
-      <Webcam ref={webCamRef} />
-      <canvas ref={canvasRef} />
-    </>
+    </div>
   );
 }
 
