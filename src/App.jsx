@@ -75,9 +75,14 @@ function App() {
 
   return (
     <div className='lessonBackground'>
-      <h1 className='word'>word: {word}</h1>
+      <h1 className='word'>{
+        word && word.split('').map((letter, i) => ( 
+          <span className={index === i ? '' : 'letter'} key={i}>
+            {letter}
+          </span>
+        ))
+      }</h1>
       <h2 className='guess'>guess: {guessLetter}</h2>
-      <h2 className='currentLetter'>Sign this letter: {word[index]}</h2>
       <div className='webcamContainer'>
         <Webcam className='webcam' ref={webCamRef} 
         />

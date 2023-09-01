@@ -19,20 +19,18 @@
 }
 
 .word {
-  grid-row: 2 / 3; 
+  grid-row: 2 / 3;
+  font-size: 96px;
+  letter-spacing: 1px;
 }
 
 .guess {
   grid-row: 3 / 4;
 }
 
-.currentLetter {
-  grid-row: 4 / 5;
-}
-
 .webcamContainer {
-  grid-column: 9 / 16;
-  grid-row: 1 / 16;
+  grid-column: 9 / -1;
+  grid-row: 1 / -1;
 }
 
 .webcam, .canvas {
@@ -41,4 +39,9 @@
   height: 100%;
   object-fit: cover;
   transform: scale(-1, 1);
+}
+
+.letter {
+  opacity: 0.5;
+  color: whitesmoke;
 }
