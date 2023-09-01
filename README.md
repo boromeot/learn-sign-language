@@ -1,8 +1,14 @@
-# React + Vite
+# Sign Language Learning Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## Introduction
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Sign Language Learning Web App is an interactive and educational platform designed to help people learn and practice sign language. Leveraging computer vision technology, this web application enables users to interact with the system using sign language gestures and receive feedback and guidance on their signing.
+
+### Features
+
+- Real-time Sign Language Detection: The web app uses computer vision to detect and recognize sign language gestures in real-time.
+
+- Interactive Learning Modules: Engage in interactive sign language lessons and exercises designed to enhance your signing skills.
+
+- User Progress Tracking: Keep track of your learning progress with personalized profiles and achievements.
