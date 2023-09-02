@@ -1,4 +1,4 @@
-.home-background {
+.lessons-background {
   background-color: rgb(87, 143, 192);
   height: 100%;
   display: grid;
@@ -7,7 +7,7 @@
   grid-gap: clamp(5px, 10px, 15px);
 }
 
-.home-lesson-btn {
+.lesson-btn {
   background-color: aliceblue;
   grid-column: 8 / 10;
 }
