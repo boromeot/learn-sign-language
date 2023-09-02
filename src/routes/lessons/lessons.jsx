@@ -1,6 +1,6 @@
-import './home.css';
+import './lessons.css';
 
-export default function Home() {
+export default function Lessons() {
   return (
     <div className="home-background">
       <button className='home-lesson-btn hlb1'>
