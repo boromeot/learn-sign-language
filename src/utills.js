@@ -16,6 +16,20 @@ async function setHandDetector() {
   return handLandmarker;
 }
 
+async function detect(model, webCamRef) {
+  if (typeof webCamRef.current === undefined ||
+      webCamRef.current === null ||
+      webCamRef.current.video.readyState !== 4
+    ) return null;
+  // Get video
+  const video = webCamRef.current.video;
+
+  const startTimeMs = performance.now();
+  const detections = await model.recognizeForVideo(video, startTimeMs);
+  
+  return detections;
+}
+
 function draw(detections, canvasRef, webCamRef) {
   const video = webCamRef.current.video;
   const { videoWidth, videoHeight } = webCamRef.current.video;
@@ -60,4 +74,4 @@ function draw(detections, canvasRef, webCamRef) {
 }
 
 
-export { setHandDetector, draw};
+export { setHandDetector, detect, draw};
