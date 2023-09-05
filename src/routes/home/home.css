@@ -1,0 +1,23 @@
+.home-background {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  grid-template-rows: repeat(16, 1fr);
+  background-color: rgb(87, 143, 192);
+  color: aliceblue;
+}
+
+.home-heading {
+  grid-column: 6 / span 6;
+  grid-row: 5 / span 1;
+  text-align: center;
+  letter-spacing: 5px;
+  font-size: 56px;
+}
+
+.home-cta {
+  grid-column: 8 / span 2;
+  grid-row: 8 / span 1;
+  font-size: 24px;
+  color: inherit;
+}

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { draw, setHandDetector } from './utills';
+import Modal from './modal/modal';
 import Webcam from 'react-webcam';
 import './App.css'
 

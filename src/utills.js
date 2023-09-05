@@ -51,4 +51,5 @@ function draw(detections, canvasContext, canvasWidth, canvasHeight) {
   }
 }
 
+
 export { setHandDetector, draw};
