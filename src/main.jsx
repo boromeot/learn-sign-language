@@ -18,6 +18,10 @@ const router = createBrowserRouter([
     element: <Lessons />
   },
   {
+    path: '/lessons/:id',
+    element: <App />
+  },
+  {
     path: '/app',
     element: <App />
   }

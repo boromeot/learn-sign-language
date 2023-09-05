@@ -8,7 +8,7 @@ html, body, :root {
   line-height: 1.5;
   font-weight: 400;
 
-  color: rgba(10, 10, 10, 0.788);
+  color: rgb(255, 255, 255);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -40,7 +40,9 @@ button, .btn {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: rgb(87, 143, 192);
+  outline: 2px solid aliceblue;
+  color: aliceblue;
   cursor: pointer;
   transition: border-color 0.25s;
   text-align: center;
