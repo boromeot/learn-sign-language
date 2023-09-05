@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { draw, setHandDetector } from './utills';
+import { draw, setHandDetector, detect } from './utills';
 import { useParams } from 'react-router-dom';
 import lessons from './words';
 import Webcam from 'react-webcam';
@@ -35,8 +35,10 @@ function App() {
   // Create game loop
   useEffect(() => {
     if (model) {
-      const interval = setInterval(() => {
-        detect(model);
+      const interval = setInterval(async () => {
+        const detections = await detect(model, webCamRef);
+        if (detections?.gestures[0]) setGuessLetter(detections.gestures[0][0].categoryName);
+        if (detections) draw(detections, canvasRef, webCamRef);
       }, 10);
       return () => clearInterval(interval);
     }
@@ -51,39 +53,10 @@ function App() {
   useEffect(() => {
     if (letterIndex === word.length) {
       setIndex(0);
-      console.log(words)
       setWord(words[wordIndex + 1]);
       setWordIndex((i) => i + 1);
     }
   }, [letterIndex]);
-
-  async function detect(model) {
-    if (typeof webCamRef.current === undefined ||
-        webCamRef.current === null ||
-        webCamRef.current.video.readyState !== 4
-      ) return;
-    // Get video dimensions
-    const video = webCamRef.current.video;
-    const { videoWidth, videoHeight } = video;
-
-    // Set video and canvas dimensions
-    video.width = videoWidth;
-    video.height = videoHeight;
-    canvasRef.current.width = videoWidth;
-    canvasRef.current.height = videoHeight;
-
-    const startTimeMs = performance.now();
-    const detections = await model.recognizeForVideo(video, startTimeMs);
-    if (detections.gestures[0]) {
-      setGuessLetter(detections.gestures[0][0].categoryName);
-    }
-    // Get and Clear canvas before drawing
-    const ctx = canvasRef.current.getContext('2d');
-    ctx.clearRect(0, 0, videoWidth, videoHeight);
-    
-    draw(detections, ctx, videoWidth, videoHeight);
-    return;
-  }
 
   return (
     <div className='lessonBackground'>
