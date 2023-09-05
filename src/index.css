@@ -18,7 +18,7 @@ html, body, :root {
 }
 
 a {
-  text-decoration: inherit;
+  text-decoration: none;
 }
 
 body {
@@ -31,29 +31,53 @@ h1 {
   line-height: 1.1;
 }
 
-button, .btn {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: rgb(87, 143, 192);
-  outline: 2px solid aliceblue;
+.btn {
+  background: none;
   color: aliceblue;
+  border: 2px solid aliceblue;
+  border-radius: 3px;
+  padding: 12px 20px;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: color 0.4s linear;
+  position: relative;
+  z-index: 1;
   text-align: center;
 }
-button:hover, .btn:hover {
-  border-color: #646cff;
+
+.btn:hover {
+  color:rgb(87, 143, 192);
 }
-button:focus,
-button:focus-visible,
-.btn:focus,
-.btn:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+.btn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  z-index: -1;
+  transition: transform 0.5s;
+  transform-origin: 0 0;
+  transition-timing-function: cubic-bezier(0.5,1.6,0.4,0.7);
 }
+
+.btn1::before {
+  transform: scaleX(0);
+}
+
+.btn2::before {
+  transform: scaleY(0);
+}
+
+.btn1:hover::before {
+  transform: scaleX(1)
+}
+
+.btn2:hover::before {
+  transform: scaleY(1);
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {

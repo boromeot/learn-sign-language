@@ -5,14 +5,19 @@
   grid-template-rows: repeat(16, 1fr);
   background-color: rgb(87, 143, 192);
   color: aliceblue;
+  text-align: center;
 }
 
 .home-heading {
   grid-column: 6 / span 6;
   grid-row: 5 / span 1;
-  text-align: center;
   letter-spacing: 5px;
   font-size: 56px;
+}
+
+.home-heading-secondary {
+  grid-column: 7 / span 4;
+  grid-row: 6 / span 1;
 }
 
 .home-cta {
