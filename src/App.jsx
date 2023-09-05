@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { draw, setHandDetector } from './utills';
-import Modal from './modal/modal';
+import { useParams } from 'react-router-dom';
+import lessons from './words';
 import Webcam from 'react-webcam';
 import './App.css'
 
@@ -8,10 +9,12 @@ function App() {
   const webCamRef = useRef(null);
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
-
-  const [words, setWords] = useState(['Cake','Bee','Candy','Who','About','Why','Add','Child','Rock','Bill','Brown','Room','Bird','Brother','Seem','Club'])
+  
+  const { lessonId } = useParams();
+  
+  const [words, setWords] = useState(lessons[lessonId]);
   const [wordIndex, setWordIndex] = useState(0);
-  const [word, setWord] = useState('Cake');
+  const [word, setWord] = useState(words[0]);
   const [letterIndex, setIndex] = useState(0);
   const [guessLetter, setGuessLetter] = useState('');
 
@@ -74,7 +77,7 @@ function App() {
     if (detections.gestures[0]) {
       setGuessLetter(detections.gestures[0][0].categoryName);
     }
-    // Clear the canvas before drawing
+    // Get and Clear canvas before drawing
     const ctx = canvasRef.current.getContext('2d');
     ctx.clearRect(0, 0, videoWidth, videoHeight);
     
