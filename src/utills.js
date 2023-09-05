@@ -16,7 +16,15 @@ async function setHandDetector() {
   return handLandmarker;
 }
 
-function draw(detections, canvasContext, canvasWidth, canvasHeight) {
+function draw(detections, canvasRef, webCamRef) {
+  const video = webCamRef.current.video;
+  const { videoWidth, videoHeight } = webCamRef.current.video;
+  video.width = videoWidth, video.height = videoHeight;
+  
+  const canvasContext = canvasRef.current.getContext('2d');
+  canvasRef.current.width = videoWidth;
+  canvasRef.current.height = videoHeight;
+  canvasContext.clearRect(0, 0, videoWidth, videoHeight);
   // Set canvas settings
   canvasContext.lineWidth = 1;
   canvasContext.strokeStyle = 'black';
@@ -25,7 +33,7 @@ function draw(detections, canvasContext, canvasWidth, canvasHeight) {
     const landmarks = detections.landmarks[i] ? detections.landmarks[i] : [];
     // Draw key points
     for (let {x, y} of landmarks) {
-      x *= canvasWidth, y *= canvasHeight;
+      x *= videoWidth, y *= videoHeight;
       canvasContext.beginPath();
       canvasContext.arc(x, y, 2, 0, 3 * Math.PI);
       canvasContext.fillStyle = 'pink';
@@ -37,8 +45,8 @@ function draw(detections, canvasContext, canvasWidth, canvasHeight) {
     canvasContext.beginPath();
     for (let i = 0; i < landmarks.length; i++) {
       let {x, y} = landmarks[i];
-      x *= canvasWidth, y *= canvasHeight;
-      if ((i - 1) % 4 === 0) canvasContext.lineTo(landmarks[0].x * canvasWidth, landmarks[0].y * canvasHeight);
+      x *= videoWidth, y *= videoHeight;
+      if ((i - 1) % 4 === 0) canvasContext.lineTo(landmarks[0].x * videoWidth, landmarks[0].y * videoHeight);
       canvasContext.lineTo(x, y);
       if ((i) % 4 === 0) {
         canvasContext.stroke();

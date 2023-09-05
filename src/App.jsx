@@ -51,7 +51,6 @@ function App() {
   useEffect(() => {
     if (letterIndex === word.length) {
       setIndex(0);
-      console.log(words)
       setWord(words[wordIndex + 1]);
       setWordIndex((i) => i + 1);
     }
@@ -62,27 +61,17 @@ function App() {
         webCamRef.current === null ||
         webCamRef.current.video.readyState !== 4
       ) return;
-    // Get video dimensions
+    // Get video
     const video = webCamRef.current.video;
-    const { videoWidth, videoHeight } = video;
-
-    // Set video and canvas dimensions
-    video.width = videoWidth;
-    video.height = videoHeight;
-    canvasRef.current.width = videoWidth;
-    canvasRef.current.height = videoHeight;
 
     const startTimeMs = performance.now();
     const detections = await model.recognizeForVideo(video, startTimeMs);
     if (detections.gestures[0]) {
       setGuessLetter(detections.gestures[0][0].categoryName);
     }
-    // Get and Clear canvas before drawing
-    const ctx = canvasRef.current.getContext('2d');
-    ctx.clearRect(0, 0, videoWidth, videoHeight);
     
-    draw(detections, ctx, videoWidth, videoHeight);
-    return;
+    draw(detections, canvasRef, webCamRef);
+    return detections;
   }
 
   return (
