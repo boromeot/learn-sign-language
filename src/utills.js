@@ -36,10 +36,10 @@ function draw(detections, canvasRef, webCamRef) {
   video.width = videoWidth, video.height = videoHeight;
   
   const canvasContext = canvasRef.current.getContext('2d');
+  // Set canvas settings
   canvasRef.current.width = videoWidth;
   canvasRef.current.height = videoHeight;
   canvasContext.clearRect(0, 0, videoWidth, videoHeight);
-  // Set canvas settings
   canvasContext.lineWidth = 1;
   canvasContext.strokeStyle = 'black';
   
@@ -69,7 +69,6 @@ function draw(detections, canvasRef, webCamRef) {
       }
     }
     canvasContext.closePath();
-
   }
 }
 
