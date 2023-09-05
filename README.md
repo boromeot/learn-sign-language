@@ -7,8 +7,10 @@ The Sign Language Learning Web App is an interactive and educational platform de
 
 ### Features
 
-- Real-time Sign Language Detection: The web app uses computer vision to detect and recognize sign language gestures in real-time.
+- Real-time Sign Language Detection: This web app uses computer vision to detect and recognize sign language gestures in real-time.
 
 - Interactive Learning Modules: Engage in interactive sign language lessons and exercises designed to enhance your signing skills.
 
+
+### Coming soon
 - User Progress Tracking: Keep track of your learning progress with personalized profiles and achievements.
