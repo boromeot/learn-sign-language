@@ -3,6 +3,7 @@ import { draw, setHandDetector, detect } from './utills';
 import { useParams } from 'react-router-dom';
 import lessons from './words';
 import Webcam from 'react-webcam';
+import myImage from './handSigns/letterA.png';
 import './App.css'
 
 function App() {
@@ -67,9 +68,9 @@ function App() {
           </span>
         ))
       }</h1>
+      <img src={myImage} className='handSign'/>
       <div className='webcamContainer'>
-        <Webcam className='webcam' ref={webCamRef} 
-        />
+        <Webcam className='webcam' ref={webCamRef} />
         <canvas className='canvas' ref={canvasRef} />
       </div>
     </div>
