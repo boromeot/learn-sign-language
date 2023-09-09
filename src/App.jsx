@@ -3,10 +3,14 @@ import { draw, setHandDetector, detect } from './utills';
 import { useParams } from 'react-router-dom';
 import lessons from './words';
 import Webcam from 'react-webcam';
-import myImage from './handSigns/letterA.png';
 import './App.css'
 
 function App() {
+  const imageSrc = {};
+  for (let letter = 'A'.charCodeAt(0); letter <= 'Z'.charCodeAt(0); letter++) {
+    const letterSrc = `/src/handSigns/letter${String.fromCharCode(letter)}.png`;
+    imageSrc[String.fromCharCode(letter)] = letterSrc
+  }
   const webCamRef = useRef(null);
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
@@ -59,6 +63,9 @@ function App() {
     }
   }, [letterIndex]);
 
+
+  const currentLetter = word[letterIndex]?.toLocaleUpperCase();
+
   return (
     <div className='lessonBackground'>
       <h1 className='word'>{
@@ -68,7 +75,7 @@ function App() {
           </span>
         ))
       }</h1>
-      <img src={myImage} className='handSign'/>
+      {imageSrc[currentLetter] && <img src={imageSrc[currentLetter]} alt={`Image ${letterIndex + 1}`} className='handSign'/>}
       <div className='webcamContainer'>
         <Webcam className='webcam' ref={webCamRef} />
         <canvas className='canvas' ref={canvasRef} />
