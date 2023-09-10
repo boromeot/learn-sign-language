@@ -23,7 +23,7 @@ function App() {
   const [letterIndex, setIndex] = useState(0);
   const [guessLetter, setGuessLetter] = useState('');
 
-  const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Load model
   useEffect(() => {
@@ -78,16 +78,15 @@ function App() {
           </span>
         ))
       }</h1>
-      <img
-        loading='lazy'
+      {<img
         onLoad={() =>{
-          setLoaded(true)
+          console.log('loaded');
+          setLoading(true)
         }}
-        style={loaded ? {} : {display: 'none'}}
+        loading='lazy'
         src={imageSrc[currentLetter]} 
-        alt={`Image ${letterIndex + 1}`} 
         className='handSign'
-      />
+      />}
       <div className='webcamContainer'>
         <Webcam className='webcam' ref={webCamRef} />
         <canvas className='canvas' ref={canvasRef} />
