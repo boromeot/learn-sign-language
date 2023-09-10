@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  assetsInclude: ["**/*.task"], // Include the model task file
+  assetsInclude: ["**/*.task","**/handSigns/*"], // Include the model task file
 })

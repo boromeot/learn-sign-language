@@ -23,6 +23,8 @@ function App() {
   const [letterIndex, setIndex] = useState(0);
   const [guessLetter, setGuessLetter] = useState('');
 
+  const [loaded, setLoaded] = useState(false);
+
   // Load model
   useEffect(() => {
     const run = async () => {
@@ -49,6 +51,7 @@ function App() {
     }
   }, [model]);
 
+  // 
   useEffect(() => { 
     if (word[letterIndex].toLocaleUpperCase() === guessLetter) {
       setIndex((i) => i + 1);
@@ -75,7 +78,16 @@ function App() {
           </span>
         ))
       }</h1>
-      {imageSrc[currentLetter] && <img src={imageSrc[currentLetter]} alt={`Image ${letterIndex + 1}`} className='handSign'/>}
+      <img
+        loading='lazy'
+        onLoad={() =>{
+          setLoaded(true)
+        }}
+        style={loaded ? {} : {display: 'none'}}
+        src={imageSrc[currentLetter]} 
+        alt={`Image ${letterIndex + 1}`} 
+        className='handSign'
+      />
       <div className='webcamContainer'>
         <Webcam className='webcam' ref={webCamRef} />
         <canvas className='canvas' ref={canvasRef} />
