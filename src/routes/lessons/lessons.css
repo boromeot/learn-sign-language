@@ -1,29 +1,30 @@
 .lessons-background {
-  background-color: rgb(87, 143, 192);
+  background-image: linear-gradient(315deg, #2876f9 0%, #6d17cb 74%);
   height: 100%;
   display: grid;
   grid-template-columns: repeat(16, 1fr);
   grid-template-rows: repeat(16, 1fr);
   grid-gap: clamp(5px, 10px, 15px);
+  text-align: center;
+
 }
 
-.lesson-btn {
-  grid-column: 8 / 10;
+.lessons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.hlb0 {
-  grid-row: 4 / span 1;
+.lessons-header {
+  border-bottom: 1px solid aliceblue;
 }
 
-.hlb1 {
-  grid-row: 5 / span 1;
+.--abcs {
+  grid-row: 3 / span 12;
+  grid-column: 3 / span 3;
 }
-.hlb2 {
-  grid-row: 6 / span 1;
-}
-.hlb3 {
-  grid-row: 7 / span 1;
-}
-.hlb4 {
-  grid-row: 8 / span 1;
+
+.--practice {
+  grid-row: 3 / span 12;
+  grid-column: 7 / span 3;
 }

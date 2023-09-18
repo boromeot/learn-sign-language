@@ -27,8 +27,9 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
   line-height: 1.1;
+  margin: 0;
+  padding: 0;
 }
 
 .btn {
@@ -45,7 +46,7 @@ h1 {
 }
 
 .btn:hover {
-  color:rgb(87, 143, 192);
+  color: #6d17cb;
 }
 
 .btn::before {
