@@ -13,27 +13,18 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  grid-row: 3 / span 12;
-  grid-column: 3 / span 3;
 }
 
 .lessons-header {
   border-bottom: 1px solid aliceblue;
 }
 
-.lesson-btn {
-  grid-column: 8 / 10;
+.--abcs {
+  grid-row: 3 / span 12;
+  grid-column: 3 / span 3;
 }
 
-.hlb1 {
-  grid-row: 5 / span 1;
-}
-.hlb2 {
-  grid-row: 6 / span 1;
-}
-.hlb3 {
-  grid-row: 7 / span 1;
-}
-.hlb4 {
-  grid-row: 8 / span 1;
+.--practice {
+  grid-row: 3 / span 12;
+  grid-column: 7 / span 3;
 }
