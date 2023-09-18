@@ -4,9 +4,12 @@ import './lessons.css';
 export default function Lessons() {
   return (
     <div className="lessons-background">
-      <Link to={'/lessons/0'} className='lesson-btn hlb0 btn btn1'>
-        Learning your abcs
-      </Link>
+      <div className='lessons-container'>
+        <h1 className='lessons-header'>Learning your abcs</h1>
+        <Link to={'/lessons/0'} className='btn btn1'>A - I</Link>
+        <Link to={'/lessons/0'} className='btn btn1'>J - R</Link>
+        <Link to={'/lessons/0'} className='btn btn1'>S - Z</Link>
+      </div>
       <Link to={'/lessons/1'} className='lesson-btn hlb1 btn btn1'>
         Lesson 1
       </Link>
