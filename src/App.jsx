@@ -8,7 +8,7 @@ import './App.css'
 function App() {
   const imageSrc = {};
   for (let letter = 'A'.charCodeAt(0); letter <= 'Z'.charCodeAt(0); letter++) {
-    const letterSrc = `/src/handSigns/letter${String.fromCharCode(letter)}.png`;
+    const letterSrc = `/handSigns/letter${String.fromCharCode(letter)}.png`;
     imageSrc[String.fromCharCode(letter)] = letterSrc
   }
   const webCamRef = useRef(null);
