@@ -6,6 +6,11 @@ import Webcam from 'react-webcam';
 import './App.css'
 
 function App() {
+  const imageSrc = {};
+  for (let letter = 'A'.charCodeAt(0); letter <= 'Z'.charCodeAt(0); letter++) {
+    const letterSrc = `/handSigns/letter${String.fromCharCode(letter)}.png`;
+    imageSrc[String.fromCharCode(letter)] = letterSrc
+  }
   const webCamRef = useRef(null);
   const canvasRef = useRef(null);
   const [model, setModel] = useState(null);
@@ -17,6 +22,8 @@ function App() {
   const [word, setWord] = useState(words[0]);
   const [letterIndex, setIndex] = useState(0);
   const [guessLetter, setGuessLetter] = useState('');
+
+  const [loading, setLoading] = useState(false);
 
   // Load model
   useEffect(() => {
@@ -44,6 +51,7 @@ function App() {
     }
   }, [model]);
 
+  // 
   useEffect(() => { 
     if (word[letterIndex].toLocaleUpperCase() === guessLetter) {
       setIndex((i) => i + 1);
@@ -58,6 +66,9 @@ function App() {
     }
   }, [letterIndex]);
 
+
+  const currentLetter = word[letterIndex]?.toLocaleUpperCase();
+
   return (
     <div className='lessonBackground'>
       <h1 className='word'>{
@@ -67,9 +78,17 @@ function App() {
           </span>
         ))
       }</h1>
+      {<img
+        onLoad={() =>{
+          console.log('loaded');
+          setLoading(true)
+        }}
+        loading='lazy'
+        src={imageSrc[currentLetter]} 
+        className='handSign'
+      />}
       <div className='webcamContainer'>
-        <Webcam className='webcam' ref={webCamRef} 
-        />
+        <Webcam className='webcam' ref={webCamRef} />
         <canvas className='canvas' ref={canvasRef} />
       </div>
     </div>
